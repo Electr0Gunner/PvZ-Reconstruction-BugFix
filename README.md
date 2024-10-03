@@ -11,5 +11,5 @@
 ![GitHub](https://img.shields.io/github/license/Electr0Gunner/PvZ-Reconstruction-BugFix)
 
 # Documentation
-[https://github.com/Electr0Gunner/PvZ-Reconstruction-BugFix/wiki](Documentation of everything in the code)
-
+Here you will find info about many of the functions and classes:
+[Documentation](https://github.com/Electr0Gunner/PvZ-Reconstruction-BugFix/wiki/).
