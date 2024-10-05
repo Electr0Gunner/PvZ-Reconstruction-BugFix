@@ -21,6 +21,7 @@ class Image;
 class SoundInstance;
 class SexyAppBase;
 class Font;
+class SexyShader;
 
 typedef std::map<std::string, std::string>	StringToStringMap;
 typedef std::map<SexyString, SexyString>	XMLParamMap;
@@ -202,6 +203,8 @@ public:
 	const ResList*			GetCurResGroupList()	{return mCurResGroupList;}
 	std::string				GetCurResGroup()		{return mCurResGroup;}
 	void					DumpCurResGroup(std::string& theDestStr);
+
+	SexyShader				LoadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile);
 };
 
 ///////////////////////////////////////////////////////////////////////////////

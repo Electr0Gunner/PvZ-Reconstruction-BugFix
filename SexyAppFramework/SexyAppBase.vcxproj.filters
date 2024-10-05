@@ -124,6 +124,15 @@
     <Filter Include="Lawn\Board\Board Source">
       <UniqueIdentifier>{f3e853ae-1d79-4c3e-bdeb-63ea2671fc57}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Dependencies">
+      <UniqueIdentifier>{0ba7103d-e089-4a91-9568-4a1c72d4b4d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sexy\OpenGL">
+      <UniqueIdentifier>{0dd4c856-223b-493d-b4d5-14ddcf766aaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dependencies\glm">
+      <UniqueIdentifier>{bfdbd396-a3aa-4b42-8e30-4f7a7c5e1ff7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp">
@@ -902,6 +911,12 @@
     <ClCompile Include="..\Lawn\Widget\CreditScreen.cpp">
       <Filter>Lawn\Widget\Widget Source</Filter>
     </ClCompile>
+    <ClCompile Include="dependencies\opengl\glm\detail\glm.cpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClCompile>
+    <ClCompile Include="dependencies\opengl\glad.c">
+      <Filter>Dependencies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Color.h">
@@ -1439,7 +1454,888 @@
     <ClInclude Include="..\Lawn\Widget\CheatDialog.h">
       <Filter>Lawn\Widget\Widget Include</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="dependencies\opengl\glm\detail\_features.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\_fixes.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\_matrix_vectorize.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\_noise.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\_swizzle.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\_swizzle_func.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\_vectorize.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\associated_min_max.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\bit.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\bitfield.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\closest_point.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\color_encoding.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\color_space.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\color_space.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\color_space_YCoCg.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\simd\common.h">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\common.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\common.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\compatibility.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\component_wise.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\compute_common.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\compute_vector_decl.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\compute_vector_relational.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\constants.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\dual_quaternion.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\easing.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\epsilon.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\euler_angles.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\simd\exponential.h">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\exponential.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\extend.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\extended_min_max.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\exterior_product.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\fast_exponential.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\fast_square_root.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\fast_trigonometry.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\functions.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\fwd.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\simd\geometric.h">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\geometric.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\glm.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\gradient_paint.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\handed_coordinate_space.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\hash.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\simd\integer.h">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\integer.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\integer.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\integer.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\intersect.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\io.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\log_base.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\mat2x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\mat2x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\mat2x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\mat3x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\mat3x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\mat3x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\mat4x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\mat4x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\mat4x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\simd\matrix.h">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\matrix.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\matrix_access.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_clip_space.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_common.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\matrix_cross_product.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\matrix_decompose.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double2x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double2x2_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double2x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double2x3_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double2x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double2x4_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double3x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double3x2_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double3x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double3x3_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double3x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double3x4_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double4x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double4x2_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double4x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double4x3_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double4x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_double4x4_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\matrix_factorisation.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float2x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float2x2_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float2x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float2x3_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float2x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float2x4_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float3x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float3x2_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float3x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float3x3_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float3x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float3x4_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float4x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float4x2_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float4x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float4x3_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float4x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_float4x4_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int2x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int2x2_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int2x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int2x3_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int2x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int2x4_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int3x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int3x2_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int3x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int3x3_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int3x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int3x4_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int4x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int4x2_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int4x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int4x3_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int4x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_int4x4_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_integer.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\matrix_integer.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\matrix_interpolation.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\matrix_inverse.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\matrix_major_storage.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\matrix_operation.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_projection.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\matrix_query.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_relational.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_transform.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\matrix_transform.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\matrix_transform_2d.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint2x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint2x2_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint2x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint2x3_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint2x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint2x4_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint3x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint3x2_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint3x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint3x3_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint3x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint3x4_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint4x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint4x2_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint4x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint4x3_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint4x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\matrix_uint4x4_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\mixed_product.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\simd\neon.h">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\noise.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\norm.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\normal.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\normalize_dot.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\number_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\optimum_pow.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\orthonormalize.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\simd\packing.h">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\packing.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\packing.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\pca.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\perpendicular.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\simd\platform.h">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\polar_coordinates.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\projection.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\qualifier.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\quaternion.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\quaternion.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\quaternion_common.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\quaternion_double.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\quaternion_double_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\quaternion_exponential.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\quaternion_float.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\quaternion_float_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\quaternion_geometric.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\quaternion_relational.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\quaternion_transform.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\quaternion_trigonometric.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\random.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\range.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\raw_data.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\reciprocal.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\rotate_normalized_axis.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\rotate_vector.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\round.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\scalar_common.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\scalar_constants.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\scalar_int_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\scalar_integer.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\scalar_multiplication.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\scalar_packing.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\scalar_reciprocal.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\scalar_relational.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\scalar_relational.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\scalar_uint_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\scalar_ulp.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\setup.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\spline.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\stb_image.h">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\std_based_type.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\string_cast.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\texture.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\transform.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\transform2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\simd\trigonometric.h">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\trigonometric.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\type_aligned.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\type_aligned.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_float.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_half.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_mat2x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_mat2x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_mat2x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_mat3x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_mat3x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_mat3x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_mat4x2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_mat4x3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_mat4x4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\type_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\type_ptr.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_quat.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\type_trait.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_vec1.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_vec2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_vec3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\detail\type_vec4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\ulp.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\vec_swizzle.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtc\vec1.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\vec2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\vec3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\vec4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\vector_angle.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_bool1.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_bool1_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_bool2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_bool2_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_bool3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_bool3_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_bool4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_bool4_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_common.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_double1.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_double1_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_double2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_double2_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_double3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_double3_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_double4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_double4_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_float1.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_float1_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_float2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_float2_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_float3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_float3_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_float4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_float4_precision.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_int1.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_int1_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_int2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_int2_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_int3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_int3_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_int4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_int4_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_integer.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_packing.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\vector_query.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_reciprocal.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\simd\vector_relational.h">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_relational.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\vector_relational.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_uint1.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_uint1_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_uint2.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_uint2_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_uint3.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_uint3_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_uint4.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_uint4_sized.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\ext\vector_ulp.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glm\gtx\wrap.hpp">
+      <Filter>Dependencies\glm</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\GLFW\glfw3native.h">
+      <Filter>Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\glad\glad.h">
+      <Filter>Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\GLFW\glfw3.h">
+      <Filter>Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\opengl\KHR\khrplatform.h">
+      <Filter>Dependencies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="BltRotatedHelper.inc">
@@ -1491,6 +2387,420 @@
       <Filter>Sexy\Graphics\Inc Routines</Filter>
     </None>
     <None Include="..\Cursor13.cur" />
+    <None Include="dependencies\opengl\glm\gtx\associated_min_max.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\bit.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\bitfield.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\closest_point.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\color_encoding.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\color_space.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\color_space.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\color_space_YCoCg.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\common.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\compatibility.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\component_wise.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\constants.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\dual_quaternion.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\easing.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\epsilon.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\euler_angles.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\extend.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\extended_min_max.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\exterior_product.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\fast_exponential.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\fast_square_root.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\fast_trigonometry.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\float_notmalize.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_common.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_common_simd.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_exponential.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_exponential_simd.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_geometric.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_geometric_simd.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_integer.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_integer_simd.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_matrix.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_matrix_simd.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_packing.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_packing_simd.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_trigonometric.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_trigonometric_simd.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_vector_relational.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\func_vector_relational_simd.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\functions.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\gradient_paint.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\handed_coordinate_space.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\hash.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\integer.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\integer.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\intersect.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\io.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\log_base.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\matrix_access.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\matrix_clip_space.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\matrix_common.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\matrix_cross_product.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\matrix_decompose.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\matrix_factorisation.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\matrix_integer.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\matrix_interpolation.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\matrix_inverse.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\matrix_major_storage.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\matrix_operation.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\matrix_projection.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\matrix_query.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\matrix_relational.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\matrix_transform.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\matrix_transform.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\matrix_transform_2d.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\mixed_product.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\noise.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\norm.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\normal.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\normalize_dot.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\optimum_pow.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\orthonormalize.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\packing.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\pca.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\perpendicular.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\polar_coordinates.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\projection.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\quaternion.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\quaternion.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\quaternion_common.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\quaternion_common_simd.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\quaternion_exponential.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\quaternion_geometric.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\quaternion_relational.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\quaternion_simd.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\quaternion_transform.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\quaternion_trigonometric.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\random.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\raw_data.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\rotate_normalized_axis.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\rotate_vector.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\round.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\scalar_common.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\scalar_constants.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\scalar_integer.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\scalar_packing.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\scalar_reciprocal.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\scalar_relational.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\scalar_relational.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\scalar_ulp.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\spline.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\std_based_type.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\string_cast.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\texture.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\transform.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\transform2.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\type_aligned.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_half.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_mat2x2.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_mat2x3.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_mat2x4.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_mat3x2.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_mat3x3.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_mat3x4.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_mat4x2.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_mat4x3.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_mat4x4.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_mat4x4_simd.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\type_precision.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\type_ptr.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_quat.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_quat_simd.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\type_trait.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_vec1.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_vec2.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_vec3.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_vec4.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\detail\type_vec4_simd.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtc\ulp.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\vector_angle.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\vector_common.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\vector_integer.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\vector_packing.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\vector_query.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\vector_reciprocal.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\vector_relational.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\ext\vector_ulp.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
+    <None Include="dependencies\opengl\glm\gtx\wrap.inl">
+      <Filter>Dependencies\glm</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\ImageLib\jpeg2000\jas_cm.h">

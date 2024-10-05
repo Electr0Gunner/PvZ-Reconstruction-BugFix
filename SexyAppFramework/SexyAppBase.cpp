@@ -2,6 +2,8 @@
 //#define SEXY_PERF_ENABLED
 //#define SEXY_MEMTRACE
 
+#include <glad/glad.h> 
+#include <GLFW/glfw3.h>
 #include "SexyAppBase.h"
 #include "SEHCatcher.h"
 #include "WidgetManager.h"
@@ -468,7 +470,13 @@ SexyAppBase::~SexyAppBase()
 		OutputDebugString(aStr);*/
 				
 		DestroyWindow(aWindow);
-	}	
+	}
+
+	if (mWindow != NULL)
+	{
+		glfwDestroyWindow(mWindow);
+		mWindow = NULL;
+	}
 	
 	WaitForLoadingThread();	
 
@@ -2576,6 +2584,10 @@ bool SexyAppBase::DrawDirtyStuff()
 			CalculateDemoTimeLeft();
 	}
 
+	if (mWindow != NULL) {
+		GLDraw();
+	}
+
 	DWORD aStartTime = timeGetTime();
 
 	// Update user input and screen saver info
@@ -4610,6 +4622,11 @@ std::string	SexyAppBase::NotifyCrashHook()
 	return "";
 }
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+}
+
 void SexyAppBase::MakeWindow()
 {
 	//OutputDebugString("MAKING WINDOW\r\n");
@@ -4845,7 +4862,34 @@ void SexyAppBase::MakeWindow()
 	mWidgetManager->MarkAllDirty();
 
 	SetTimer(mHWnd, 100, mFrameTime, NULL);
+
+	//FROM HERE AND UNDER WE KEEP OPENGL WINDOW STUFF UNTIL DIRECTX RENDERER IS REMOVED
+
+	glfwInit();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	mWindow = glfwCreateWindow(640, 480, mTitle.c_str(), NULL, NULL);
+	if (mWindow == NULL)
+	{
+		Popup("Failed to create GLFW window");
+		glfwTerminate();
+		exit(0);
+	}
+	glfwMakeContextCurrent(mWindow);
+
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		Popup("Failed to initialize GLAD");
+		exit(0);
+	}
+
+	glViewport(0, 0, mWidth, mHeight);
+
+	glfwSetFramebufferSizeCallback(mWindow, framebuffer_size_callback);
 }
+
 
 void SexyAppBase::DeleteNativeImageData()
 {
@@ -5500,6 +5544,17 @@ void SexyAppBase::DoMainLoop()
 			mExitToTop = false;
 		UpdateApp();
 	}
+}
+
+bool SexyAppBase::GLDraw()
+{
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	glfwSwapBuffers(mWindow);
+	glfwPollEvents();
+
+	return true;
 }
 
 bool SexyAppBase::UpdateAppStep(bool* updated)

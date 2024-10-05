@@ -10,6 +10,7 @@
 #include "CritSect.h"
 #include "SharedImage.h"
 #include "Ratio.h"
+#include <GLFW/glfw3.h>
 
 namespace ImageLib
 {
@@ -320,6 +321,11 @@ public:
 	StringStringVectorMap	mStringVectorProperties;
 	ResourceManager*		mResourceManager;
 
+	//OPENGL
+
+	GLFWwindow* mWindow;
+
+
 #ifdef ZYLOM
 	uint					mZylomGameId;
 #endif
@@ -568,6 +574,8 @@ public:
 	bool					IsScreenSaver();
 	virtual bool			AppCanRestore();
 	static LRESULT CALLBACK	WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);		
+
+	bool					GLDraw();
 };
 
 extern SexyAppBase* gSexyAppBase;
