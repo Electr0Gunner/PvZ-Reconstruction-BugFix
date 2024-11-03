@@ -714,26 +714,7 @@ bool Reanimation::DrawTrack(Graphics* g, int theTrackIndex, int theRenderGroup, 
 	SexyMatrix3Multiply(aMatrix, mOverlayMatrix, aMatrix);  // 以动画覆写矩阵作用 aMatrix
 	SexyMatrix3Translation(aMatrix, aTrackInstance->mShakeX + g->mTransX - 0.5f, aTrackInstance->mShakeY + g->mTransY - 0.5f);  // 轨道震动及 g 的影响
 
-	if (aAtlasImage != nullptr)  // 如果存在图集（动画定义存在 atlas，轨道变换存在图像，轨道不存在覆写贴图）
-	{
-		Rect aSrcRect(aAtlasImage->mX, aAtlasImage->mY, aAtlasImage->mWidth, aAtlasImage->mHeight);
-		aImage = mDefinition->mReanimAtlas->mMemoryImage;
-		if (mFilterEffect != FilterEffect::FILTER_EFFECT_NONE)  // 如果动画存在滤镜
-		{
-			aImage = FilterEffectGetImage(aImage, mFilterEffect);  // 取得滤镜后的贴图
-		}
-		theTriangleGroup->AddTriangle(g, aImage, aMatrix, aClipRect, aColor, g->mDrawMode, aSrcRect);  // 向三角组中添加三角形
-		if (mEnableExtraAdditiveDraw && !aTrackInstance->mIgnoreExtraAdditiveColor)  // 如果动画存在额外叠加颜色且轨道不能无视之
-		{
-			theTriangleGroup->AddTriangle(g, aImage, aMatrix, aClipRect, aExtraAdditiveColor, Graphics::DRAWMODE_ADDITIVE, aSrcRect);
-		}
-		if (mEnableExtraOverlayDraw)
-		{
-			theTriangleGroup->AddTriangle(
-				g, FilterEffectGetImage(aImage, FilterEffect::FILTER_EFFECT_WHITE), aMatrix, aClipRect, aExtraOverlayColor, Graphics::DRAWMODE_NORMAL, aSrcRect);
-		}
-	}
-	else if (aImage != nullptr)  // 如果不存在 atlas 但轨道变换存在图像
+	if (aImage != nullptr)  // 如果不存在 atlas 但轨道变换存在图像
 	{
 		if (aTrackInstance->mImageOverride != nullptr)  // 如果轨道存在覆写贴图
 		{
@@ -780,6 +761,7 @@ bool Reanimation::DrawTrack(Graphics* g, int theTrackIndex, int theRenderGroup, 
 		g->SetColor(aOldColor);  // 还原颜色
 	}
 	return true;
+
 }
 
 //0x472B70

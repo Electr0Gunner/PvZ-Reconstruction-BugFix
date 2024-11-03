@@ -1126,7 +1126,7 @@ void MemoryImage::PurgeBits()
 		if ((mBits == NULL) && (mColorIndices == NULL))
 			return;
 		
-		GetNativeAlphaData(gSexyAppBase->mDDInterface);		
+		//GetNativeAlphaData(gSexyAppBase->mDDInterface);		
 	}		
 	
 	delete [] mBits;
@@ -1176,6 +1176,63 @@ void MemoryImage::ReInit()
 			
 	if (mPurgeBits)
 		PurgeBits();
+}
+
+SDL_Texture* MemoryImage::ConvertToSDLTexture()
+{
+	int width = GetWidth();
+	int height = GetHeight();
+	ulong* pixels = GetBits();
+
+	SDL_Surface* aSurface = SDL_CreateRGBSurfaceWithFormatFrom(pixels, width, height, 32, width * SDL_BYTESPERPIXEL(SDL_PIXELFORMAT_ARGB8888), SDL_PIXELFORMAT_ARGB8888);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(gSexyAppBase->mSDLInterface->mRenderer, aSurface);
+
+	if (texture == nullptr) {
+		
+		SDL_DestroyTexture(texture);
+		SDL_FreeSurface(aSurface);
+		return nullptr;
+	}
+	SDL_FreeSurface(aSurface);
+	SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+	return texture;
+}
+
+MemoryImage* MemoryImage::ConvertToMemoryImage(SDL_Texture* TheTexture)
+{
+	// Query the texture to get its width, height, and format
+	int width, height;
+	Uint32 format;
+	if (SDL_QueryTexture(TheTexture, &format, nullptr, &width, &height) != 0) {
+		SDL_Log("Failed to query texture: %s", SDL_GetError());
+		return nullptr;
+	}
+
+	// Create a surface with the same format as the texture
+	SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, format);
+	if (!surface) {
+		SDL_Log("Failed to create surface: %s", SDL_GetError());
+		return nullptr;
+	}
+
+	// Render the texture onto the surface to retrieve pixel data
+	if (SDL_RenderReadPixels(SDL_GetRenderer(gSexyAppBase->mSDLInterface->mWindow), nullptr, format, surface->pixels, surface->pitch) != 0) {
+		SDL_Log("Failed to read pixels from renderer: %s", SDL_GetError());
+		SDL_FreeSurface(surface);
+		return nullptr;
+	}
+
+	// Create the MemoryImage
+	MemoryImage* memoryImage = new MemoryImage();
+	if (!memoryImage) {
+		SDL_FreeSurface(surface);
+		return nullptr;
+	}
+
+	memoryImage->SetBits((ulong*)surface->pixels, width, height, true);
+	SDL_FreeSurface(surface);
+
+	return memoryImage;
 }
 
 void MemoryImage::DeleteNativeData()
@@ -1256,37 +1313,32 @@ ulong* MemoryImage::GetBits()
 		}
 		else if (mNativeAlphaData != NULL)
 		{
-			NativeDisplay* aDisplay = gSexyAppBase->mDDInterface;
-
-			const int rMask = aDisplay->mRedMask;
-			const int gMask = aDisplay->mGreenMask;
-			const int bMask = aDisplay->mBlueMask;
-
-			const int rLeftShift = aDisplay->mRedShift + (aDisplay->mRedBits);
-			const int gLeftShift = aDisplay->mGreenShift + (aDisplay->mGreenBits);
-			const int bLeftShift = aDisplay->mBlueShift + (aDisplay->mBlueBits);			
-
 			ulong* aDestPtr = mBits;
 			ulong* aSrcPtr = mNativeAlphaData;
 
-			int aSize = mWidth*mHeight;
-			for (int i = 0; i < aSize; i++)
-			{
+			for (int i = 0; i < aSize; i++) {
 				ulong val = *(aSrcPtr++);
 
-				int anAlpha = val >> 24;			
+				int alpha = val >> 24;
+				int red = (val & 0xFF0000) >> 16;
+				int green = (val & 0x00FF00) >> 8;
+				int blue = (val & 0x0000FF);
 
-				ulong r = (((((val & rMask) << 8) / (anAlpha+1)) & rMask) << 8) >> rLeftShift;
-				ulong g = (((((val & gMask) << 8) / (anAlpha+1)) & gMask) << 8) >> gLeftShift;
-				ulong b = (((((val & bMask) << 8) / (anAlpha+1)) & bMask) << 8) >> bLeftShift;
+				if (alpha > 0) {
+					red = (red << 8) / (alpha + 1);
+					green = (green << 8) / (alpha + 1);
+					blue = (blue << 8) / (alpha + 1);
+				}
 
-				*(aDestPtr++) = (r << 16) | (g << 8) | (b) | (anAlpha << 24);
+				*(aDestPtr++) = (red << 16) | (green << 8) | (blue) | (alpha << 24);
+			}
 			}
 		}
-		else if ((mD3DData == NULL) || (!mApp->mDDInterface->mD3DInterface->RecoverBits(this)))
+		//else if ((mD3DData == NULL) || (!mApp->mDDInterface->mD3DInterface->RecoverBits(this)))
 		{
-			ZeroMemory(mBits, aSize*sizeof(ulong));
-		}
+			//ZeroMemory(mBits, aSize*sizeof(ulong));
+		//}
+		
 	}	
 
 	return mBits;

@@ -7,9 +7,8 @@
 #include "TodParticle.h"
 #include "EffectSystem.h"
 #include "../GameConstants.h"
-#include "../SexyAppFramework/DDImage.h"
-#include "../SexyAppFramework/DDInterface.h"
-#include "../SexyAppFramework/D3DInterface.h"
+#include "../SexyAppFramework/MemoryImage.h"
+#include "../SexyAppFramework/SDLInterface.h"
 
 EffectSystem* gEffectSystem = nullptr;  //[0x6A9EB8]
 
@@ -396,20 +395,13 @@ void TodTriangleGroup::DrawGroup(Graphics* g)
 			gTodTriangleDrawAdditive = true;
 		TodSandImageIfNeeded(mImage);
 
-		if (DDImage::Check3D(g->mDestImage))
-		{
-			DDImage* anImage = (DDImage*)g->mDestImage;
-			mImage->mDrawn = true;
-			anImage->mDDInterface->mD3DInterface->DrawTrianglesTex(mVertArray, mTriangleCount, Color::White, mDrawMode, mImage, 0.0f, 0.0f, g->mLinearBlend);
-		}
-		else
-		{
-			g->mDestImage->BltTrianglesTex(mImage, mVertArray, mTriangleCount, Rect(0, 0, BOARD_WIDTH, BOARD_HEIGHT), Color::White, mDrawMode, 0.0f, 0.0f, g->mLinearBlend);
-		}
+		gSexyAppBase->mSDLInterface->BlitTriangle(mImage, mVertArray, mTriangleCount, Rect(0, 0, BOARD_WIDTH, BOARD_HEIGHT), Rect(0, 0, BOARD_WIDTH, BOARD_HEIGHT), Color::White, mDrawMode);
 
 		mTriangleCount = 0;
 		gTodTriangleDrawAdditive = false;
 	}
+
+	
 }
 
 //0x446300

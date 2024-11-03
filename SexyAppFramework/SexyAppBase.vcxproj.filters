@@ -124,21 +124,12 @@
     <Filter Include="Lawn\Board\Board Source">
       <UniqueIdentifier>{f3e853ae-1d79-4c3e-bdeb-63ea2671fc57}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sexy\Graphics\Renderer">
+      <UniqueIdentifier>{bf7d3a7c-f173-4ba2-9e42-bb9e4e35c08a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp">
-      <Filter>Sexy\Graphics\Graphics Source</Filter>
-    </ClCompile>
-    <ClCompile Include="D3DInterface.cpp">
-      <Filter>Sexy\Graphics\Graphics Source</Filter>
-    </ClCompile>
-    <ClCompile Include="D3DTester.cpp">
-      <Filter>Sexy\Graphics\Graphics Source</Filter>
-    </ClCompile>
-    <ClCompile Include="DDImage.cpp">
-      <Filter>Sexy\Graphics\Graphics Source</Filter>
-    </ClCompile>
-    <ClCompile Include="DDInterface.cpp">
       <Filter>Sexy\Graphics\Graphics Source</Filter>
     </ClCompile>
     <ClCompile Include="Font.cpp">
@@ -902,21 +893,15 @@
     <ClCompile Include="..\Lawn\Widget\CreditScreen.cpp">
       <Filter>Lawn\Widget\Widget Source</Filter>
     </ClCompile>
+    <ClCompile Include="SDLInterface.cpp">
+      <Filter>Sexy\Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsManager.cpp">
+      <Filter>Sexy\Misc\Misc Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Color.h">
-      <Filter>Sexy\Graphics\Graphics Include</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DInterface.h">
-      <Filter>Sexy\Graphics\Graphics Include</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DTester.h">
-      <Filter>Sexy\Graphics\Graphics Include</Filter>
-    </ClInclude>
-    <ClInclude Include="DDImage.h">
-      <Filter>Sexy\Graphics\Graphics Include</Filter>
-    </ClInclude>
-    <ClInclude Include="DDInterface.h">
       <Filter>Sexy\Graphics\Graphics Include</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
@@ -1440,6 +1425,12 @@
       <Filter>Lawn\Widget\Widget Include</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SDLInterface.h">
+      <Filter>Sexy\Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingsManager.h">
+      <Filter>Sexy\Misc\Misc Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="BltRotatedHelper.inc">

@@ -10,6 +10,9 @@
 #include "CritSect.h"
 #include "SharedImage.h"
 #include "Ratio.h"
+#include <json.hpp>
+
+using json = nlohmann::json;
 
 namespace ImageLib
 {
@@ -29,6 +32,8 @@ class MusicInterface;
 class MemoryImage;
 class HTTPTransfer;
 class Dialog;
+class SDLInterface;
+class SettingsManager;
 
 class ResourceManager;
 
@@ -156,6 +161,7 @@ public:
 	bool					mBetaValidate;
 	uchar					mAdd8BitMaxTable[512];
 	WidgetManager*			mWidgetManager;
+	SettingsManager*		mSettingsManager;
 	DialogMap				mDialogMap;
 	DialogList				mDialogList;
 	DWORD					mPrimaryThreadId;
@@ -178,7 +184,6 @@ public:
 	bool					mNoDefer;	
 	bool					mFullScreenPageFlip;	
 	bool					mTabletPC;
-	DDInterface*			mDDInterface;
 	bool					mAlphaDisabled;
 	MusicInterface*			mMusicInterface;	
 	bool					mReadFromRegistry;
@@ -319,6 +324,7 @@ public:
 	StringDoubleMap			mDoubleProperties;
 	StringStringVectorMap	mStringVectorProperties;
 	ResourceManager*		mResourceManager;
+	SDLInterface*			mSDLInterface;
 
 #ifdef ZYLOM
 	uint					mZylomGameId;
@@ -327,7 +333,6 @@ public:
 	LONG					mOldWndProc;
 
 protected:	
-	void					RehupFocus();
 	void					ClearKeysDown();
 	bool					ProcessDeferredMessages(bool singleMessage);
 	void					UpdateFTimeAcc();
@@ -410,6 +415,7 @@ public:
 
 	virtual void			Start();	
 	virtual void			Init();	
+	virtual void			SyncSettings();	
 	virtual void			PreDDInterfaceInitHook();
 	virtual void			PostDDInterfaceInitHook();
 	virtual bool			ChangeDirHook(const char *theIntendedPath);
@@ -436,7 +442,7 @@ public:
 	void					SetCursor(int theCursorNum);
 	int						GetCursor();
 	void					EnableCustomCursors(bool enabled);	
-	virtual DDImage*		GetImage(const std::string& theFileName, bool commitBits = true);	
+	virtual MemoryImage*		GetImage(const std::string& theFileName, bool commitBits = true);
 	virtual SharedImageRef	GetSharedImage(const std::string& theFileName, const std::string& theVariant = "", bool* isNew = NULL);
 
 	void					CleanSharedImages();
@@ -445,11 +451,11 @@ public:
 	void					PrecacheNative(MemoryImage* theImage);
 	void					SetCursorImage(int theCursorNum, Image* theImage);
 
-	DDImage*				CreateCrossfadeImage(Image* theImage1, const Rect& theRect1, Image* theImage2, const Rect& theRect2, double theFadeFactor);
+	MemoryImage*				CreateCrossfadeImage(Image* theImage1, const Rect& theRect1, Image* theImage2, const Rect& theRect2, double theFadeFactor);
 	void					ColorizeImage(Image* theImage, const Color& theColor);
-	DDImage*				CreateColorizedImage(Image* theImage, const Color& theColor);
-	DDImage*				CopyImage(Image* theImage, const Rect& theRect);
-	DDImage*				CopyImage(Image* theImage);
+	MemoryImage*				CreateColorizedImage(Image* theImage, const Color& theColor);
+	MemoryImage*				CopyImage(Image* theImage, const Rect& theRect);
+	MemoryImage*				CopyImage(Image* theImage);
 	void					MirrorImage(Image* theImage);
 	void					FlipImage(Image* theImage);
 	void					RotateImageHue(Sexy::MemoryImage *theImage, int theDelta);
@@ -560,6 +566,7 @@ public:
 	bool					EraseFile(const std::string& theFileName);
 
 	// Misc methods
+	void					RehupFocus();
 	virtual void			DoMainLoop();
 	virtual bool			UpdateAppStep(bool* updated);
 	virtual bool			UpdateApp();

@@ -5,12 +5,14 @@
 #include "../../Resources.h"
 #include "../../Sexy.TodLib/TodCommon.h"
 #include "../../SexyAppFramework/SexyMatrix.h"
+#include "../../SexyAppFramework/SDLInterface.h"
 #include "../../Sexy.TodLib/TodStringFile.h"
 #include "../../Sexy.TodLib/EffectSystem.h"
 #include "../../Sexy.TodLib/TodDebug.h"
 #include "../../Sexy.TodLib/Reanimator.h"
 #include "../../GameConstants.h"
 #include "../System/Music.h"
+#include "../System/ReanimationLawn.h"
 
 //0x48D4B0
 TitleScreen::TitleScreen(LawnApp* theApp)
@@ -177,6 +179,9 @@ void TitleScreen::Draw(Graphics* g)
 		Rect aSrcRect(0, 0, IMAGE_REANIM_SODROLLCAP->mWidth, IMAGE_REANIM_SODROLLCAP->mHeight);
 		TodBltMatrix(g, IMAGE_REANIM_SODROLLCAP, aTransform, g->mClipRect, Color::White, g->mDrawMode, aSrcRect);
 	}
+
+	mApp->mReanimatorCache->DrawCachedZombie(g, 0, 0, ZOMBIE_NORMAL);
+	g->DrawImage(mApp->mReanimatorCache->mZombieImages[0], BOARD_WIDTH / 2, BOARD_HEIGHT / 2);
 
 	Reanimation* aReanim = nullptr;
 	while (mApp->mEffectSystem->mReanimationHolder->mReanimations.IterateNext(aReanim))

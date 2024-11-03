@@ -40,6 +40,7 @@
 #include "Lawn/Widget/NewOptionsDialog.h"
 #include "Lawn/Widget/SeedChooserScreen.h"
 #include "SexyAppFramework/WidgetManager.h"
+#include "SexyAppFramework/SettingsManager.h"
 #include "SexyAppFramework/ResourceManager.h"
 
 #include "SexyAppFramework/Checkbox.h"
@@ -1108,6 +1109,7 @@ bool LawnApp::KillNewOptionsDialog()
 	bool want3D = aNewOptionsDialog->mHardwareAccelerationCheckbox->IsChecked();
 	SwitchScreenMode(wantWindowed, want3D, false);
 
+	mSettingsManager->SetSettings();
 	KillDialog(Dialogs::DIALOG_NEWOPTIONS);
 	ClearUpdateBacklog();
 	return true;
@@ -1860,7 +1862,10 @@ void LawnApp::ButtonDepress(int theId)
 
 		case Dialogs::DIALOG_QUIT:
 			KillDialog(Dialogs::DIALOG_QUIT);
-			SendMessage(mHWnd, WM_CLOSE, NULL, NULL);
+			{
+				SDL_Event event = { SDL_QUIT };
+				SDL_PushEvent(&event);
+			}
 			return;
 
 		case Dialogs::DIALOG_NAG:

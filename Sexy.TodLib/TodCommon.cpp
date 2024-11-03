@@ -7,14 +7,12 @@
 #include "TodStringFile.h"
 #include "../GameConstants.h"
 #include "../SexyAppFramework/Font.h"
+#include "../SexyAppFramework/SDLInterface.h"
 #include "../SexyAppFramework/Debug.h"
-#include "../SexyAppFramework/DDImage.h"
 #include "../SexyAppFramework/Graphics.h"
 #include "../SexyAppFramework/ImageFont.h"
 #include "../SexyAppFramework/PerfTimer.h"
 #include "../SexyAppFramework/SexyMatrix.h"
-#include "../SexyAppFramework/DDInterface.h"
-#include "../SexyAppFramework/D3DInterface.h"
 
 //0x510BC0
 void Tod_SWTri_AddAllDrawTriFuncs()
@@ -702,37 +700,8 @@ void TodSandImageIfNeeded(Image* theImage)
 //0x512650
 void TodBltMatrix(Graphics* g, Image* theImage, const SexyMatrix3& theTransform, const Rect& theClipRect, const Color& theColor, int theDrawMode, const Rect& theSrcRect)
 {
-	float aOffsetX = 0.0f;
-	float aOffsetY = 0.0f;
-	if (gSexyAppBase->Is3DAccelerated())
-	{
-		aOffsetX -= 0.5f;
-		aOffsetY -= 0.5f;
-	}
-	else if (theDrawMode == Graphics::DRAWMODE_ADDITIVE)
-	{
-		gTodTriangleDrawAdditive = true;
-	}
-
 	TodSandImageIfNeeded(theImage);
-
-	if (theClipRect.mX != 0 || theClipRect.mY != 0 || theClipRect.mWidth != BOARD_WIDTH || theClipRect.mHeight != BOARD_HEIGHT)
-	{
-		g->mDestImage->BltMatrix(theImage, aOffsetX, aOffsetY, theTransform, theClipRect, theColor, theDrawMode, theSrcRect, g->mLinearBlend);
-	}
-	else if (DDImage::Check3D(g->mDestImage))
-	{
-		theImage->mDrawn = true;
-		D3DInterface* aInterface = ((DDImage*)g->mDestImage)->mDDInterface->mD3DInterface;
-		aInterface->BltTransformed(theImage, nullptr, theColor, theDrawMode, theSrcRect, theTransform, g->mLinearBlend, aOffsetX, aOffsetY, true);
-	}
-	else
-	{
-		Rect aBufFixClipRect(0, 0, BOARD_WIDTH + 1, BOARD_HEIGHT + 1);
-		g->mDestImage->BltMatrix(theImage, aOffsetX, aOffsetY, theTransform, aBufFixClipRect, theColor, theDrawMode, theSrcRect, g->mLinearBlend);
-	}
-
-	gTodTriangleDrawAdditive = false;
+	gSexyAppBase->mSDLInterface->Blit(theImage, theTransform, theSrcRect, theClipRect, theColor, theDrawMode);
 }
 
 //0x5127C0
@@ -824,7 +793,9 @@ void TodDrawImageScaledF(Graphics* g, Image* theImage, float thePosX, float theP
 	aTransform.m22 = 1.0f;
 
 	const Color& aColor = g->mColorizeImages ? g->mColor : Color::White;
-	TodBltMatrix(g, theImage, aTransform, g->mClipRect, aColor, g->mDrawMode, aSrcRect);
+
+	gSexyAppBase->mSDLInterface->Blit(theImage, aTransX, aTransY, theScaleX, theScaleY, g->mClipRect, aColor, g->mDrawMode);
+	//TodBltMatrix(g, theImage, aTransform, g->mClipRect, aColor, g->mDrawMode, aSrcRect);
 }
 
 //0x512A10
@@ -1125,7 +1096,7 @@ bool TodResourceManager::TodLoadNextResource()
 		case ResType_Image:
 		{
 			ImageRes* anImageRes = (ImageRes*)aRes;
-			if ((DDImage*)anImageRes->mImage != nullptr)
+			if ((MemoryImage*)anImageRes->mImage != nullptr)
 			{
 				mCurResGroupListItr++;
 				continue;

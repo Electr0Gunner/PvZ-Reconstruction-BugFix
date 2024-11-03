@@ -255,6 +255,7 @@ MemoryImage* ReanimatorCache::MakeCachedZombieFrame(ZombieType theZombieType)
 		aUseZombieType = ZombieType::ZOMBIE_POLEVAULTER;
 	}
 	ZombieDefinition& aZombieDef = GetZombieDefinition(aUseZombieType);
+	aMemoryImage->mFilePath = StrFormat(_S("cached_%d"), aZombieDef.mZombieName);
 	TOD_ASSERT(aZombieDef.mReanimationType != ReanimationType::REANIM_NONE);
 
 	float aPosX = 40.0f, aPosY = 40.0f;

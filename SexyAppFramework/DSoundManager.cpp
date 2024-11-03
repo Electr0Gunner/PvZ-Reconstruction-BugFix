@@ -39,7 +39,7 @@ DSoundManager::DSoundManager(HWND theHWnd, bool haveFMod)
 	mDirectSound = NULL;
 
 	mMasterVolume = 1.0;
-
+	/*
 	if (theHWnd != NULL)
 	{
 		extern HMODULE gDSoundDLL;
@@ -100,6 +100,7 @@ DSoundManager::DSoundManager(HWND theHWnd, bool haveFMod)
 			}
 		}
 	}	
+	*/
 }
 
 DSoundManager::~DSoundManager()

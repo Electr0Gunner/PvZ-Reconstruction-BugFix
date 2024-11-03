@@ -1,10 +1,8 @@
 #include "SysFont.h"
-#include "DDImage.h"
 #include "SexyAppBase.h"
 #include "Graphics.h"
 #include "ImageFont.h"
 #include "MemoryImage.h"
-#include "D3DInterface.h"
 #include "WidgetManager.h"
 #include <stdlib.h>
 
@@ -184,8 +182,8 @@ int	SysFont::StringWidth(const SexyString& theString)
 
 void SysFont::DrawString(Graphics* g, int theX, int theY, const SexyString& theString, const Color& theColor, const Rect& theClipRect)
 {
-	DDImage* aDDImage = dynamic_cast<DDImage*>(g->mDestImage);
-
+	MemoryImage* aDDImage = dynamic_cast<MemoryImage*>(g->mDestImage);
+	/*
 	if (aDDImage != NULL)
 	{
 		LPDIRECTDRAWSURFACE aSurface = aDDImage->GetSurface();
@@ -196,8 +194,8 @@ void SysFont::DrawString(Graphics* g, int theX, int theY, const SexyString& theS
 			if (aDDImage->mLockCount > 0)
 				aDDImage->mSurface->Unlock(NULL);
 
-			if ((g->mDestImage == gSexyAppBase->mWidgetManager->mImage) && (gSexyAppBase->Is3DAccelerated()))
-				gSexyAppBase->mDDInterface->mD3DInterface->Flush();				
+			//if ((g->mDestImage == gSexyAppBase->mWidgetManager->mImage) && (gSexyAppBase->Is3DAccelerated()))
+				//gSexyAppBase->mDDInterface->mD3DInterface->Flush();				
 			
 			if (aSurface->GetDC(&aDC) == DD_OK)
 			{				
@@ -310,6 +308,7 @@ void SysFont::DrawString(Graphics* g, int theX, int theY, const SexyString& theS
 		DeleteObject(blackBitmap);
 		DeleteDC(aDC);
 	}
+	*/
 }
 
 Font* SysFont::Duplicate()

@@ -2,6 +2,7 @@
 #define __MEMORYIMAGE_H__
 
 #include "Image.h"
+#include <SDL.h>
 
 #define OPTIMIZE_SOFTWARE_DRAWING
 #ifdef OPTIMIZE_SOFTWARE_DRAWING
@@ -53,6 +54,8 @@ public:
 	virtual void			Delete3DBuffers();	
 	virtual void			DeleteExtraBuffers();
 	virtual void			ReInit();
+	SDL_Texture*			ConvertToSDLTexture();
+	MemoryImage*			ConvertToMemoryImage(SDL_Texture* TheTexture);
 
 	virtual void			BitsChanged();
 	virtual void			CommitBits();

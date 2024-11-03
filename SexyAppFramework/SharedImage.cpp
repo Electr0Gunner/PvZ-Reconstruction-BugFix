@@ -1,5 +1,4 @@
 #include "SharedImage.h"
-#include "DDImage.h"
 #include "SexyAppBase.h"
 
 using namespace Sexy;
@@ -94,13 +93,11 @@ SharedImageRef::operator MemoryImage*()
 	if (mUnsharedImage != NULL)
 		return mUnsharedImage;
 	else
-		return (DDImage*) *this;
-}
-
-SharedImageRef::operator DDImage*()
-{
-	if (mSharedImage != NULL)
-		return mSharedImage->mImage;
-	else
-		return NULL;
+	{
+		if (mSharedImage)
+			return mSharedImage->mImage;
+		else
+			return nullptr;
+	}
+		
 }

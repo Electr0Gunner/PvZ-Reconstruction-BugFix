@@ -1,5 +1,5 @@
 #include "FlashWidget.h"
-#include "DDImage.h"
+#include "MemoryImage.h"
 #include "SexyAppBase.h"
 #include "WidgetManager.h"
 #include "Debug.h"
@@ -1043,7 +1043,7 @@ void FlashWidget::RebuildImages()
 {
 	CleanupImages();
 
-	mImage = new DDImage(gSexyAppBase->mDDInterface);
+	mImage = new MemoryImage();
 	mImage->Create(mWidth, mHeight);
 	mImage->SetImageMode(false, false);	
 }
@@ -1280,38 +1280,6 @@ void FlashWidget::Draw(Graphics* g)
 	{
 		Graphics anImageG(mImage);	
 		DrawFlashBackground(&anImageG);	
-
-		LPDIRECTDRAWSURFACE aSurface = mImage->GetSurface();
-		if (aSurface == NULL)
-			return;
-
-		HDC aDC = NULL;
-		if (aSurface->GetDC(&aDC) != S_OK)
-			return;	
-
-		IViewObject* aViewObject = NULL;
-		mFlashInterface->QueryInterface(IID_IViewObject, (LPVOID*) &aViewObject);
-		if (aViewObject != NULL)
-		{
-			RECTL aRect = {0, 0, mWidth, mHeight};
-
-			Point anAbsPos = GetAbsPos();
-
-			HRGN aRgn = CreateRectRgn(mDirtyRect.mX - anAbsPos.mX, mDirtyRect.mY - anAbsPos.mY, 
-				mDirtyRect.mX + mDirtyRect.mWidth - anAbsPos.mX, 
-				mDirtyRect.mY + mDirtyRect.mHeight - anAbsPos.mY);
-			SelectClipRgn(aDC, aRgn);
-			DeleteObject(aRgn);
-
-			aViewObject->Draw(DVASPECT_CONTENT, 1,
-				NULL, NULL, NULL, aDC, &aRect, NULL, NULL,
-				0);
-
-			aViewObject->Release();
-		}
-
-		aSurface->ReleaseDC(aDC);
-
 		mFlashDirty = false;
 	}
 	

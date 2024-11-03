@@ -58,7 +58,7 @@ public:
 	IOleInPlaceObjectWindowless* mWindowlessObject;
 
 	int						mCOMCount;
-	DDImage*				mImage;	
+	MemoryImage*				mImage;
 	int						mPauseCount;
 	bool					mHasLostFocus;
 

@@ -1,7 +1,8 @@
 #include "Graphics.h"
 #include "Image.h"
 #include "Font.h"
-#include "DDImage.h"
+#include "SDLInterface.h"
+#include "SexyAppBase.h"
 #include "MemoryImage.h"
 #include "Rect.h"
 #include "Debug.h"
@@ -65,7 +66,7 @@ Graphics::Graphics(Image* theDestImage)
 	}
 	else
 	{
-		mIs3D = DDImage::Check3D(theDestImage);
+		mIs3D = true;
 	}
 
 	mClipRect = Rect(0, 0, mDestImage->GetWidth(), mDestImage->GetHeight());
@@ -174,6 +175,7 @@ void Graphics::FillRect(int theX, int theY, int theWidth, int theHeight)
 
 	Rect aDestRect = Rect(theX + mTransX, theY + mTransY, theWidth, theHeight).Intersection(mClipRect);
 	mDestImage->FillRect(aDestRect, mColor, mDrawMode);
+	gSexyAppBase->mSDLInterface->DrawRectFilled(theX + mTransX, theY + mTransY, theWidth, theHeight, mColor, mDrawMode);
 }
 
 void Graphics::FillRect(const Rect& theRect)
@@ -210,6 +212,8 @@ void Graphics::DrawRect(int theX, int theY, int theWidth, int theHeight)
 		if (aClippedRect.mY + aClippedRect.mHeight == aDestRect.mY + aDestRect.mHeight)
 			mDestImage->FillRect(Rect(aClippedRect.mX, aClippedRect.mY + aClippedRect.mHeight, aClippedRect.mWidth, 1), mColor, mDrawMode);*/
 	}
+
+	gSexyAppBase->mSDLInterface->DrawRect(theX + mTransX, theY + mTransY, theWidth, theHeight, mColor, mDrawMode);
 }
 
 void Graphics::DrawRect(const Rect& theRect)
@@ -662,6 +666,9 @@ void Graphics::DrawImage(Sexy::Image* theImage, int theX, int theY)
 
 	if ((aSrcRect.mWidth > 0) && (aSrcRect.mHeight > 0))
 		mDestImage->Blt(theImage, aDestRect.mX, aDestRect.mY, aSrcRect, mColorizeImages ? mColor : Color::White, mDrawMode);
+
+
+	gSexyAppBase->mSDLInterface->Blit(theImage, aDestRect, aSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode);
 }
 
 void Graphics::DrawImage(Image* theImage, int theX, int theY, const Rect& theSrcRect)
@@ -680,6 +687,7 @@ void Graphics::DrawImage(Image* theImage, int theX, int theY, const Rect& theSrc
 	{
 		Rect aDestRect(mScaleOrigX+floor((theX-mScaleOrigX)*mScaleX),mScaleOrigY+floor((theY-mScaleOrigY)*mScaleY),ceil(theSrcRect.mWidth*mScaleX),ceil(theSrcRect.mHeight*mScaleY));
 		mDestImage->StretchBlt(theImage, aDestRect, theSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode, mFastStretch);
+		gSexyAppBase->mSDLInterface->Blit(theImage, aDestRect, theSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode);
 		return;
 	}
 
@@ -688,6 +696,8 @@ void Graphics::DrawImage(Image* theImage, int theX, int theY, const Rect& theSrc
 
 	if ((aSrcRect.mWidth > 0) && (aSrcRect.mHeight > 0))
 		mDestImage->Blt(theImage, aDestRect.mX, aDestRect.mY, aSrcRect, mColorizeImages ? mColor : Color::White, mDrawMode);
+
+	gSexyAppBase->mSDLInterface->Blit(theImage, aDestRect, aSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode);
 }
 
 void Graphics::DrawImageMirror(Image* theImage, int theX, int theY, bool mirror)
@@ -723,6 +733,8 @@ void Graphics::DrawImageMirror(Image* theImage, int theX, int theY, const Rect& 
 
 	if ((aSrcRect.mWidth > 0) && (aSrcRect.mHeight > 0))
 		mDestImage->BltMirror(theImage, aDestRect.mX, aDestRect.mY, aSrcRect, mColorizeImages ? mColor : Color::White, mDrawMode);
+
+	gSexyAppBase->mSDLInterface->BlitMirror(theImage, aDestRect, aSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode);
 }
 
 void Graphics::DrawImageMirror(Image* theImage, const Rect& theDestRect, const Rect& theSrcRect, bool mirror)
@@ -736,6 +748,8 @@ void Graphics::DrawImageMirror(Image* theImage, const Rect& theDestRect, const R
 	Rect aDestRect = Rect(theDestRect.mX + mTransX, theDestRect.mY + mTransY, theDestRect.mWidth, theDestRect.mHeight);
 
 	mDestImage->StretchBltMirror(theImage, aDestRect, theSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode, mFastStretch);
+
+	gSexyAppBase->mSDLInterface->BlitMirror(theImage, theDestRect, theSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode);
 }
 
 
@@ -745,6 +759,8 @@ void Graphics::DrawImage(Image* theImage, int theX, int theY, int theStretchedWi
 	Rect aSrcRect = Rect(0, 0, theImage->mWidth, theImage->mHeight);
 
 	mDestImage->StretchBlt(theImage, aDestRect, aSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode, mFastStretch);
+
+	gSexyAppBase->mSDLInterface->Blit(theImage, aDestRect, aSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode);
 }
 
 void Graphics::DrawImage(Image* theImage, const Rect& theDestRect, const Rect& theSrcRect)
@@ -752,6 +768,8 @@ void Graphics::DrawImage(Image* theImage, const Rect& theDestRect, const Rect& t
 	Rect aDestRect = Rect(theDestRect.mX + mTransX, theDestRect.mY + mTransY, theDestRect.mWidth, theDestRect.mHeight);
 
 	mDestImage->StretchBlt(theImage, aDestRect, theSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode, mFastStretch);
+
+	gSexyAppBase->mSDLInterface->Blit(theImage, aDestRect, theSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode);
 }
 
 void Graphics::DrawImageF(Image* theImage, float theX, float theY)
@@ -761,6 +779,7 @@ void Graphics::DrawImageF(Image* theImage, float theX, float theY)
 
 	Rect aSrcRect(0, 0, theImage->mWidth, theImage->mHeight);
 	mDestImage->BltF(theImage, theX, theY, aSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode);
+	gSexyAppBase->mSDLInterface->Blit(theImage, theX, theY, mScaleX, mScaleY, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode);
 }
 
 void Graphics::DrawImageF(Image* theImage, float theX, float theY, const Rect& theSrcRect)
@@ -770,8 +789,11 @@ void Graphics::DrawImageF(Image* theImage, float theX, float theY, const Rect& t
 
 	theX += mTransX;
 	theY += mTransY;
+
+	Rect aDestRect(theX, theY, theSrcRect.mWidth, theSrcRect.mHeight);
 	
 	mDestImage->BltF(theImage, theX, theY, theSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode);
+	gSexyAppBase->mSDLInterface->Blit(theImage, aDestRect, theSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode);
 }
 
 void Graphics::DrawImageRotated(Image* theImage, int theX, int theY, double theRot, const Rect *theSrcRect)
@@ -827,22 +849,28 @@ void Graphics::DrawImageRotatedF(Image* theImage, float theX, float theY, double
 	}
 	else
 		mDestImage->BltRotated(theImage, theX, theY, *theSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode, theRot, theRotCenterX, theRotCenterY);
+
+	gSexyAppBase->mSDLInterface->Blit(theImage, theX, theY, *theSrcRect, theRot, theRotCenterX, theRotCenterY, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode);
 }
 
 void Graphics::DrawImageMatrix(Image* theImage, const SexyMatrix3 &theMatrix, float x, float y)
 {	
 	Rect aSrcRect(0,0,theImage->mWidth,theImage->mHeight);
 	mDestImage->BltMatrix(theImage,x+mTransX,y+mTransY,theMatrix,mClipRect,mColorizeImages?mColor:Color::White,mDrawMode,aSrcRect,mLinearBlend);
+
+	gSexyAppBase->mSDLInterface->Blit(theImage, theMatrix, aSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode);
 }
 
 void Graphics::DrawImageMatrix(Image* theImage, const SexyMatrix3 &theMatrix, const Rect &theSrcRect, float x, float y)
 {
+	Rect aSrcRect(x + mTransX, y + mTransY, theImage->mWidth, theImage->mHeight);
 	mDestImage->BltMatrix(theImage,x+mTransX,y+mTransY,theMatrix,mClipRect,mColorizeImages?mColor:Color::White,mDrawMode,theSrcRect,mLinearBlend);
+	gSexyAppBase->mSDLInterface->Blit(theImage, theMatrix, aSrcRect, mClipRect, mColorizeImages ? mColor : Color::White, mDrawMode);
 }
 
 void Graphics::DrawImageTransformHelper(Image* theImage, const Transform &theTransform, const Rect &theSrcRect, float x, float y, bool useFloat)
 {
-	if (theTransform.mComplex || (DDImage::Check3D(mDestImage) && useFloat))
+	if (theTransform.mComplex || useFloat)
 	{
 		DrawImageMatrix(theImage,theTransform.GetMatrix(),theSrcRect,x,y);
 		return;

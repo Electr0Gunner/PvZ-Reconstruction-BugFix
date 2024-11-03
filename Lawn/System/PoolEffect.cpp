@@ -3,10 +3,8 @@
 #include "../../Resources.h"
 #include "../../GameConstants.h"
 #include "../../Sexy.TodLib/TodDebug.h"
-#include "../../SexyAppFramework/DDImage.h"
+#include "../../SexyAppFramework/MemoryImage.h"
 #include "../../SexyAppFramework/Graphics.h"
-#include "../../SexyAppFramework/DDInterface.h"
-#include "../../SexyAppFramework/D3DInterface.h"
 
 //0x469A60
 void PoolEffect::PoolEffectInitialize()
@@ -66,7 +64,7 @@ unsigned int PoolEffect::BilinearLookupFixedPoint(unsigned int u, unsigned int v
 
 //0x469CA0
 void PoolEffect::UpdateWaterEffect(Sexy::Graphics* g)
-{
+{/*
     int idx = 0;
     for (int y = 0; y < CAUSTIC_IMAGE_HEIGHT; y++)
     {
@@ -104,11 +102,22 @@ void PoolEffect::UpdateWaterEffect(Sexy::Graphics* g)
     }
 
     ++mCausticImage->mBitsChangedCount;
+    */
 }
 
 //0x469DE0
 void PoolEffect::PoolEffectDraw(Sexy::Graphics* g, bool theIsNight)
 {
+    if (theIsNight)
+    {
+        g->DrawImage(IMAGE_POOL_NIGHT, 34, 278);
+    }
+    else
+    {
+        g->DrawImage(IMAGE_POOL, 34, 278);
+    }
+    return;
+
     if (!mApp->Is3DAccelerated())
     {
         if (theIsNight)
@@ -121,7 +130,7 @@ void PoolEffect::PoolEffectDraw(Sexy::Graphics* g, bool theIsNight)
         }
         return;
     }
-
+    /*
     float aGridSquareX = IMAGE_POOL->GetWidth() / 15.0f;
     float aGridSquareY = IMAGE_POOL->GetHeight() / 5.0f;
     float aOffsetArray[3][16][6][2] = { 0 };
@@ -233,6 +242,7 @@ void PoolEffect::PoolEffectDraw(Sexy::Graphics* g, bool theIsNight)
     g->DrawTrianglesTex(mCausticImage, aVertArray[2], 150);
     anInterface->CheckDXError(anInterface->mD3DDevice->SetTextureStageState(0, D3DTEXTURESTAGESTATETYPE::D3DTSS_ADDRESSU, D3DTEXTUREADDRESS::D3DTADDRESS_CLAMP), "DrawPool");
     anInterface->CheckDXError(anInterface->mD3DDevice->SetTextureStageState(0, D3DTEXTURESTAGESTATETYPE::D3DTSS_ADDRESSV, D3DTEXTUREADDRESS::D3DTADDRESS_CLAMP), "DrawPool");
+    */
 }
 
 void PoolEffect::PoolEffectUpdate()
