@@ -842,11 +842,6 @@ bool ResourceManager::DoLoadFont(FontRes* theRes)
 	if (theRes->mSysFont)
 	{
 		bool bold = theRes->mBold, simulateBold = false;
-		if (Sexy::CheckFor98Mill())
-		{
-			simulateBold = bold;
-			bold = false;
-		}
 		aFont = new SysFont(theRes->mPath,theRes->mSize,bold,theRes->mItalic,theRes->mUnderline);
 		SysFont* aSysFont = (SysFont*)aFont;
 		aSysFont->mDrawShadow = theRes->mShadow;

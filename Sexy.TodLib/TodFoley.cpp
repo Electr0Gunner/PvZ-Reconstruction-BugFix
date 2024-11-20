@@ -1,6 +1,7 @@
 #include "TodFoley.h"
 #include "TodDebug.h"
 #include "TodCommon.h"
+#include "../SexyAppFramework/SDLInterface.h"
 #include "../SexyAppFramework/SoundManager.h"
 
 int gFoleyParamArraySize;        //[0x6A9F04]
@@ -281,6 +282,8 @@ void TodFoley::PlayFoleyPitch(FoleyType theFoleyType, float thePitch)
 		ApplyMusicVolume(aFoleyInstance);  // 将音效的音量调整为与音乐一致
 	bool aIsLooping = TestBit(aFoleyParams->mFoleyFlags, FoleyFlags::FOLEYFLAGS_LOOP);
 	aSoundInstance->Play(aIsLooping, false);  // 正式开始播放音效
+
+	gSexyAppBase->mSDLInterface->PlaySDLSound("sounds/bowlingimpact2.ogg", thePitch);
 }
 
 //0x515240

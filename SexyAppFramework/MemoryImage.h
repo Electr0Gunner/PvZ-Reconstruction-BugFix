@@ -41,6 +41,8 @@ public:
 
 	bool					mBitsChanged;
 	SexyAppBase*			mApp;
+
+	SDL_Texture*			mSDL_Texture;
 	
 private:
 	void					Init();

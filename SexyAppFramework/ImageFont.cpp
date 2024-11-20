@@ -1627,8 +1627,9 @@ void ImageFont::DrawStringEx(Graphics* g, int theX, int theY, const SexyString& 
 			if (aRenderCommand->mMode != -1)
 				g->SetDrawMode(aRenderCommand->mMode);			
 			g->SetColor(Color(aRenderCommand->mColor));
+			Rect aSrcRect = Rect(aRenderCommand->mSrc[0], aRenderCommand->mSrc[1], aRenderCommand->mSrc[2], aRenderCommand->mSrc[3]);
 			if (aRenderCommand->mImage != NULL)
-				g->DrawImage(aRenderCommand->mImage, aRenderCommand->mDest[0], aRenderCommand->mDest[1], Rect(aRenderCommand->mSrc[0], aRenderCommand->mSrc[1], aRenderCommand->mSrc[2], aRenderCommand->mSrc[3]));				
+				g->DrawImage(aRenderCommand->mImage, aRenderCommand->mDest[0], aRenderCommand->mDest[1], aSrcRect);
 			g->SetDrawMode(anOldDrawMode);
 
 			aRenderCommand = aRenderCommand->mNext;

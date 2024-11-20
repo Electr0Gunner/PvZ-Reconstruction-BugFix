@@ -1,6 +1,7 @@
 #include "MemoryImage.h"
 
 #include "SexyAppBase.h"
+#include "SDLInterface.h"
 #include "Graphics.h"
 #include "NativeDisplay.h"
 #include "Debug.h"
@@ -44,6 +45,7 @@ MemoryImage::MemoryImage(const MemoryImage& theMemoryImage) :
 	mWantPal(theMemoryImage.mWantPal),
 	mD3DFlags(theMemoryImage.mD3DFlags),
 	mBitsChangedCount(theMemoryImage.mBitsChangedCount),
+	mSDL_Texture(nullptr),
 	mD3DData(NULL)
 {
 	bool deleteBits = false;
@@ -138,6 +140,7 @@ MemoryImage::~MemoryImage()
 
 void MemoryImage::Init()
 {
+	mSDL_Texture = nullptr;
 	mBits = NULL;
 	mColorTable = NULL;
 	mColorIndices = NULL;
@@ -1195,6 +1198,7 @@ SDL_Texture* MemoryImage::ConvertToSDLTexture()
 	}
 	SDL_FreeSurface(aSurface);
 	SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+	mSDL_Texture = texture;
 	return texture;
 }
 
@@ -1513,7 +1517,7 @@ void MemoryImage::Blt(Image* theImage, int theX, int theY, const Rect& theSrcRec
 	DBG_ASSERTE((theColor.mGreen >= 0) && (theColor.mGreen <= 255));
 	DBG_ASSERTE((theColor.mBlue >= 0) && (theColor.mBlue <= 255));
 	DBG_ASSERTE((theColor.mAlpha >= 0) && (theColor.mAlpha <= 255));
-
+	
 	switch (theDrawMode)
 	{
 	case Graphics::DRAWMODE_NORMAL:
@@ -1523,6 +1527,18 @@ void MemoryImage::Blt(Image* theImage, int theX, int theY, const Rect& theSrcRec
 		AdditiveBlt(theImage, theX, theY, theSrcRect, theColor);
 		break;
 	}
+	
+	gSexyAppBase->mSDLInterface->Blit(
+		theImage,
+		theX, theY,        // Destination X, Y
+		theSrcRect,                          // Source rectangle
+		0.0,                               // Rotation (default 0)
+		0.0, // Center of rotation X
+		0.0, // Center of rotation Y
+		Rect(0, 0, 0, 0),                         // Clip rectangle
+		theColor, // Color (use white if no colorization)
+		theDrawMode                          // Draw mode (blend mode)
+	);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1628,6 +1644,9 @@ void MemoryImage::BltRotated(Image* theImage, float theX, float theY, const Rect
 	FRect aDestRect;
 	if (!BltRotatedClipHelper(theX, theY, theSrcRect, theClipRect, theRot, aDestRect,theRotCenterX,theRotCenterY))
 		return;
+
+
+	gSexyAppBase->mSDLInterface->Blit(theImage, Rect(aDestRect.mX, aDestRect.mY, aDestRect.mWidth, aDestRect.mHeight), theSrcRect, theClipRect, theColor, theDrawMode);
 
 	MemoryImage* aMemoryImage = dynamic_cast<MemoryImage*>(theImage);
 	uchar* aMaxTable = mApp->mAdd8BitMaxTable;
@@ -1797,6 +1816,10 @@ void MemoryImage::StretchBlt(Image* theImage, const Rect& theDestRect, const Rec
 	if (!StretchBltClipHelper(theSrcRect, theClipRect, theDestRect, aSrcRect, aDestRect))
 		return;
 
+
+	gSexyAppBase->mSDLInterface->Blit(theImage, theDestRect, theSrcRect, theClipRect, theColor, theDrawMode);
+
+	BitsChanged();
 	if (fastStretch)
 		FastStretchBlt(theImage, aDestRect, aSrcRect, theColor, theDrawMode);
 	else
@@ -1839,7 +1862,8 @@ void MemoryImage::BltMatrixHelper(Image* theImage, float x, float y, const SexyM
 void MemoryImage::BltMatrix(Image* theImage, float x, float y, const SexyMatrix3 &theMatrix, const Rect& theClipRect, const Color& theColor, int theDrawMode, const Rect &theSrcRect, bool blend)
 {
 	theImage->mDrawn = true;
-
+	
+	gSexyAppBase->mSDLInterface->Blit(theImage, x, y, theMatrix, theSrcRect, theClipRect, theColor, theDrawMode);
 	DWORD *aSurface = GetBits();
 	int aPitch = mWidth*4;
 	int aFormat = 0x8888;

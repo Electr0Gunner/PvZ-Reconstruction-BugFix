@@ -9,6 +9,7 @@
 #include "SexyMatrix.h"
 namespace Sexy
 {
+    class MemoryImage;
     class Image;
     class SexyAppBase;
     class TriVertex;
@@ -37,10 +38,13 @@ public:
     void Blit(Image* theImage, float theX, float theY, const Rect theSrcRect, double theRot, float theCenterRotX, float theCenterRotY, const Rect theClipRect, const Color theColor, int aBlendMode);
     void Blit(Image* theImage, const Rect theDestRect, const Rect theSrcRect, const Rect theClipRect, const Color theColor, int aBlendMode);
     void BlitMirror(Image* theImage, const Rect theDestRect, const Rect theSrcRect, const Rect theClipRect, const Color theColor, int aBlendMode);
-    void Blit(Image* theImage, SexyMatrix3 theMatrix, const Rect theSrcRect, const Rect theClipRect, const Color theColor, int aBlendMode);
+    void Blit(Image* theImage, int theX, int theY, SexyMatrix3 theMatrix, const Rect theSrcRect, const Rect theClipRect, const Color theColor, int aBlendMode);
     void BlitTriangle(Image* theImage, const TriVertex theVertices[][3], int theNumTriangles, const Rect theSrcRect, const Rect theClipRect, const Color theColor, int aBlendMode);
     void DrawRect(int theX, int theY, int theWidth, int theHeight, const Color theColor, int aBlendMode);
     void DrawRectFilled(int theX, int theY, int theWidth, int theHeight, const Color theColor, int aBlendMode);
+    void BlitSDLTexture(SDL_Texture* theTexture, float theX, float theY, float theScaleX, float theScaleY, const Rect theClipRect, const Color theColor, int aBlendMode);
+    void BlitMemoryImage(MemoryImage* theImage, float theX, float theY, float theScaleX, float theScaleY, const Rect theClipRect, const Color theColor, int aBlendMode);
+    void BlitMemoryImageToSDLTexture(MemoryImage* theImage, SDL_Texture* theTexture, float theX, float theY, float theScaleX, float theScaleY, const Rect theClipRect, const Color theColor, int aBlendMode);
 
     //Update the Interface
     void Update();
@@ -52,7 +56,7 @@ public:
     void MouseDown(SDL_MouseButtonEvent& theButton, bool isPressed);
 
     //Play a sound
-    void PlaySDLSound(const std::string& file);
+    void PlaySDLSound(const std::string& file, float aPitch = 1.0f);
 
     // Try to load a image using a list of extensions
     SDL_Surface* LoadSurfaceWithExtensions(const std::string& fileNameBase);
@@ -73,7 +77,8 @@ public:
 
 private:
     bool isRunning;
-    std::map<std::string, SDL_Texture*> textureCache;
+    std::map<Image*, SDL_Texture*> textureCache;
+    std::map<MemoryImage*, SDL_Texture*> textureMemoryImageCache;
 };
 }
 #endif

@@ -136,6 +136,7 @@ void TitleScreen::Draw(Graphics* g)
 	}
 
 	g->DrawImage(IMAGE_TITLESCREEN, 0, 0);
+
 	if (mNeedToInit)
 	{
 		return;
@@ -151,6 +152,10 @@ void TitleScreen::Draw(Graphics* g)
 		aLogoY = TodAnimateCurve(60, 50, mTitleStateCounter, 10, 15, CURVE_BOUNCE);
 	}
 	g->DrawImage(IMAGE_PVZ_LOGO, mWidth / 2 - IMAGE_PVZ_LOGO->mWidth / 2, aLogoY);
+
+
+	mApp->mReanimatorCache->DrawCachedMower(g, 100, 100, LAWNMOWER_LAWN);
+
 
 	int aGrassX = mStartButton->mX;
 	int aGrassY = mStartButton->mY - 17;
@@ -179,9 +184,6 @@ void TitleScreen::Draw(Graphics* g)
 		Rect aSrcRect(0, 0, IMAGE_REANIM_SODROLLCAP->mWidth, IMAGE_REANIM_SODROLLCAP->mHeight);
 		TodBltMatrix(g, IMAGE_REANIM_SODROLLCAP, aTransform, g->mClipRect, Color::White, g->mDrawMode, aSrcRect);
 	}
-
-	mApp->mReanimatorCache->DrawCachedZombie(g, 0, 0, ZOMBIE_NORMAL);
-	g->DrawImage(mApp->mReanimatorCache->mZombieImages[0], BOARD_WIDTH / 2, BOARD_HEIGHT / 2);
 
 	Reanimation* aReanim = nullptr;
 	while (mApp->mEffectSystem->mReanimationHolder->mReanimations.IterateNext(aReanim))

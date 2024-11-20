@@ -5,9 +5,10 @@
 #include "../../Sexy.TodLib/TodDebug.h"
 #include "../../SexyAppFramework/Color.h"
 #include "../../Sexy.TodLib/Reanimator.h"
+#include "../../Sexy.TodLib/Attachment.h"
 #include "../../SexyAppFramework/MemoryImage.h"
+#include "../../Resources.h"
 
-//0x46EF00
 void ReanimatorCache::UpdateReanimationForVariation(Reanimation* theReanim, DrawVariation theDrawVariation)
 {
 	if (theDrawVariation >= DrawVariation::VARIATION_MARIGOLD_WHITE && theDrawVariation <= DrawVariation::VARIATION_MARIGOLD_LIGHT_GREEN)
@@ -59,7 +60,6 @@ void ReanimatorCache::UpdateReanimationForVariation(Reanimation* theReanim, Draw
 	}
 }
 
-//0x46F100
 void ReanimatorCache::DrawReanimatorFrame(Graphics* g, float thePosX, float thePosY, ReanimationType theReanimationType, const char* theTrackName, DrawVariation theDrawVariation)
 {
 	Reanimation aReanim;
@@ -84,7 +84,7 @@ void ReanimatorCache::DrawReanimatorFrame(Graphics* g, float thePosX, float theP
 		aReanim.mColorOverride = g->GetColor();
 	}
 	aReanim.OverrideScale(g->mScaleX, g->mScaleY);
-	
+
 	if (theDrawVariation != DrawVariation::VARIATION_NORMAL)
 	{
 		UpdateReanimationForVariation(&aReanim, theDrawVariation);
@@ -93,7 +93,6 @@ void ReanimatorCache::DrawReanimatorFrame(Graphics* g, float thePosX, float theP
 	aReanim.Draw(g);
 }
 
-//0x46F280
 MemoryImage* ReanimatorCache::MakeBlankMemoryImage(int theWidth, int theHeight)
 {
 	MemoryImage* aImage = new MemoryImage();
@@ -132,7 +131,6 @@ void ReanimatorCache::GetPlantImageSize(SeedType theSeedType, int& theOffsetX, i
 	}
 }
 
-//0x46F330
 MemoryImage* ReanimatorCache::MakeCachedMowerFrame(LawnMowerType theMowerType)
 {
 	MemoryImage* aImage;
@@ -187,7 +185,6 @@ MemoryImage* ReanimatorCache::MakeCachedMowerFrame(LawnMowerType theMowerType)
 	return aImage;
 }
 
-//0x46F550
 MemoryImage* ReanimatorCache::MakeCachedPlantFrame(SeedType theSeedType, DrawVariation theDrawVariation)
 {
 	int aOffsetX, aOffsetY, aWidth, aHeight;
@@ -219,7 +216,7 @@ MemoryImage* ReanimatorCache::MakeCachedPlantFrame(SeedType theSeedType, DrawVar
 	}
 	else
 	{
-		DrawReanimatorFrame(&aMemoryGraphics, -aOffsetX, -aOffsetY, aPlantDef.mReanimationType, "anim_idle", theDrawVariation);
+		DrawReanimatorFrame(&aMemoryGraphics, -aOffsetX, -aOffsetY + (theSeedType == SeedType::SEED_IMITATER ? 5 : 0), aPlantDef.mReanimationType, "anim_idle", theDrawVariation);
 
 		if (theSeedType == SeedType::SEED_PEASHOOTER || theSeedType == SeedType::SEED_SNOWPEA || theSeedType == SeedType::SEED_REPEATER ||
 			theSeedType == SeedType::SEED_LEFTPEATER || theSeedType == SeedType::SEED_GATLINGPEA)
@@ -242,7 +239,6 @@ MemoryImage* ReanimatorCache::MakeCachedPlantFrame(SeedType theSeedType, DrawVar
 	return aMemoryImage;
 }
 
-//0x46F8A0
 MemoryImage* ReanimatorCache::MakeCachedZombieFrame(ZombieType theZombieType)
 {
 	MemoryImage* aMemoryImage = MakeBlankMemoryImage(200, 210);
@@ -255,7 +251,6 @@ MemoryImage* ReanimatorCache::MakeCachedZombieFrame(ZombieType theZombieType)
 		aUseZombieType = ZombieType::ZOMBIE_POLEVAULTER;
 	}
 	ZombieDefinition& aZombieDef = GetZombieDefinition(aUseZombieType);
-	aMemoryImage->mFilePath = StrFormat(_S("cached_%d"), aZombieDef.mZombieName);
 	TOD_ASSERT(aZombieDef.mReanimationType != ReanimationType::REANIM_NONE);
 
 	float aPosX = 40.0f, aPosY = 40.0f;
@@ -275,6 +270,79 @@ MemoryImage* ReanimatorCache::MakeCachedZombieFrame(ZombieType theZombieType)
 			aReanimFlag.SetFramesForLayer("Zombie_flag");
 			aReanimFlag.Draw(&aMemoryGraphics);
 		}
+		else if (theZombieType == ZombieType::ZOMBIE_PEA_HEAD)
+		{
+			Reanimation aReanimHead;
+			aReanimHead.ReanimationInitializeType(aPosX + 72, aPosY - 2, ReanimationType::REANIM_PEASHOOTER);
+			aReanimHead.SetFramesForLayer("anim_head_idle");
+			aReanimHead.OverrideScale(-1.0f, 1.0f);
+			aReanimHead.Draw(&aMemoryGraphics);
+			aReanim.AssignRenderGroupToTrack("Zombie_neck", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_head1", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_head2", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_hair", RENDER_GROUP_HIDDEN);
+		}
+		else if (theZombieType == ZombieType::ZOMBIE_GATLING_HEAD)
+		{
+			Reanimation aReanimHead;
+			aReanimHead.ReanimationInitializeType(aPosX + 72, aPosY - 2, ReanimationType::REANIM_GATLINGPEA);
+			aReanimHead.SetFramesForLayer("anim_head_idle");
+			aReanimHead.OverrideScale(-1.0f, 1.0f);
+			aReanimHead.Draw(&aMemoryGraphics);
+			aReanim.AssignRenderGroupToTrack("Zombie_neck", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_head1", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_head2", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_hair", RENDER_GROUP_HIDDEN);
+		}
+		else if (theZombieType == ZombieType::ZOMBIE_SQUASH_HEAD)
+		{
+			Reanimation aReanimHead;
+			aReanimHead.ReanimationInitializeType(aPosX + 63, aPosY - 10, ReanimationType::REANIM_SQUASH);
+			aReanimHead.SetFramesForLayer("anim_idle");
+			aReanimHead.OverrideScale(-0.75f, 0.75f);
+			aReanimHead.Draw(&aMemoryGraphics);
+			aReanim.AssignRenderGroupToTrack("Zombie_neck", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_head1", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_head2", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_hair", RENDER_GROUP_HIDDEN);
+		}
+
+		if (theZombieType == ZombieType::ZOMBIE_WALLNUT_HEAD)
+		{
+			Reanimation aReanimHead;
+			aReanimHead.ReanimationInitializeType(aPosX + 55, aPosY - 2, ReanimationType::REANIM_WALLNUT);
+			aReanimHead.SetFramesForLayer("anim_idle");
+			aReanimHead.OverrideScale(-0.8f, 0.8f);
+			aReanimHead.Draw(&aMemoryGraphics);
+			aReanim.AssignRenderGroupToTrack("Zombie_neck", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_head1", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_head2", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_hair", RENDER_GROUP_HIDDEN);
+		}
+		else if (theZombieType == ZombieType::ZOMBIE_JALAPENO_HEAD)
+		{
+			Reanimation aReanimHead;
+			aReanimHead.ReanimationInitializeType(aPosX + 62, aPosY - 5, ReanimationType::REANIM_JALAPENO);
+			aReanimHead.SetFramesForLayer("anim_idle");
+			aReanimHead.OverrideScale(-1.0f, 1.0f);
+			aReanimHead.Draw(&aMemoryGraphics);
+			aReanim.AssignRenderGroupToTrack("Zombie_neck", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_head1", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_head2", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_hair", RENDER_GROUP_HIDDEN);
+		}
+		else if (theZombieType == ZombieType::ZOMBIE_TALLNUT_HEAD)
+		{
+			Reanimation aReanimHead;
+			aReanimHead.ReanimationInitializeType(aPosX + 50, aPosY, ReanimationType::REANIM_TALLNUT);
+			aReanimHead.SetFramesForLayer("anim_idle");
+			aReanimHead.OverrideScale(-0.8f, 0.8f);
+			aReanimHead.Draw(&aMemoryGraphics);
+			aReanim.AssignRenderGroupToTrack("Zombie_neck", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_head1", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_head2", RENDER_GROUP_HIDDEN);
+			aReanim.AssignRenderGroupToTrack("anim_hair", RENDER_GROUP_HIDDEN);
+		}
 		aReanim.Draw(&aMemoryGraphics);
 	}
 	else if (aZombieDef.mReanimationType == ReanimationType::REANIM_BOSS)
@@ -293,6 +361,28 @@ MemoryImage* ReanimatorCache::MakeCachedZombieFrame(ZombieType theZombieType)
 		aReanim.AssignRenderGroupToTrack("boss_head2", RENDER_GROUP_HIDDEN);
 		aReanim.Draw(&aMemoryGraphics);
 	}
+	else if (aZombieDef.mReanimationType == ReanimationType::REANIM_BALLOON)
+	{
+		Reanimation aReanim;
+		aReanim.ReanimationInitializeType(aPosX, aPosY, aZombieDef.mReanimationType);
+		aReanim.SetFramesForLayer("anim_idle");
+
+		Reanimation aPropellerReanim;
+		aPropellerReanim.ReanimationInitializeType(40.0f, 39.0f, ReanimationType::REANIM_BALLOON);
+		aPropellerReanim.SetFramesForLayer("Propeller");
+
+		aReanim.Draw(&aMemoryGraphics);
+		aPropellerReanim.Draw(&aMemoryGraphics);
+	}
+	else if (aZombieDef.mReanimationType == ReanimationType::REANIM_GARGANTUAR && theZombieType == ZombieType::ZOMBIE_REDEYE_GARGANTUAR)
+	{
+		Reanimation aReanim;
+		aReanim.ReanimationInitializeType(aPosX, aPosY, aZombieDef.mReanimationType);
+		aReanim.SetFramesForLayer("anim_idle");
+		aReanim.SetImageOverride("anim_head1", IMAGE_REANIM_ZOMBIE_GARGANTUAR_HEAD_REDEYE);
+		aReanim.Draw(&aMemoryGraphics);
+	}
+
 	else
 	{
 		const char* aTrackName = "anim_idle";
@@ -318,7 +408,6 @@ MemoryImage* ReanimatorCache::MakeCachedZombieFrame(ZombieType theZombieType)
 	return aMemoryImage;
 }
 
-//0x46FDC0
 void ReanimatorCache::ReanimatorCacheInitialize()
 {
 	mApp = (LawnApp*)gSexyAppBase;
@@ -330,7 +419,6 @@ void ReanimatorCache::ReanimatorCacheInitialize()
 		mZombieImages[i] = nullptr;
 }
 
-//0x46FED0
 void ReanimatorCache::ReanimatorCacheDispose()
 {
 	for (int i = 0; i < SeedType::NUM_SEED_TYPES; i++)
@@ -348,7 +436,6 @@ void ReanimatorCache::ReanimatorCacheDispose()
 }
 
 
-//0x46FFB0
 void ReanimatorCache::DrawCachedPlant(Graphics* g, float thePosX, float thePosY, SeedType theSeedType, DrawVariation theDrawVariation)
 {
 	TOD_ASSERT(theSeedType >= 0 && theSeedType < SeedType::NUM_SEED_TYPES);
@@ -394,21 +481,19 @@ void ReanimatorCache::DrawCachedPlant(Graphics* g, float thePosX, float thePosY,
 		TodDrawImageScaledF(g, aImage, thePosX + (aOffsetX * g->mScaleX), thePosY + (aOffsetY * g->mScaleY), g->mScaleX, g->mScaleY);
 }
 
-//0x470110
 void ReanimatorCache::DrawCachedMower(Graphics* g, float thePosX, float thePosY, LawnMowerType theMowerType)
 {
 	TOD_ASSERT(theMowerType >= 0 && theMowerType < LawnMowerType::NUM_MOWER_TYPES);
-	
+
 	if (mLawnMowers[(int)theMowerType] == nullptr)
 		mLawnMowers[(int)theMowerType] = MakeCachedMowerFrame(theMowerType);
 	TodDrawImageScaledF(g, mLawnMowers[(int)theMowerType], thePosX - 20.0f, thePosY, g->mScaleX, g->mScaleY);
 }
 
-//0x470170
 void ReanimatorCache::DrawCachedZombie(Graphics* g, float thePosX, float thePosY, ZombieType theZombieType)
 {
 	TOD_ASSERT(theZombieType >= 0 && theZombieType < ZombieType::NUM_CACHED_ZOMBIE_TYPES);
-	
+
 	if (mZombieImages[(int)theZombieType] == nullptr)
 		mZombieImages[(int)theZombieType] = MakeCachedZombieFrame(theZombieType);
 	TodDrawImageScaledF(g, mZombieImages[(int)theZombieType], thePosX, thePosY, g->mScaleX, g->mScaleY);

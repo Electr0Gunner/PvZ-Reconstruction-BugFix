@@ -8,6 +8,7 @@
 #include <iostream>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
+#include <typeinfo>
 
 using namespace Sexy;
 
@@ -61,6 +62,11 @@ bool SDLInterface::InitWindow() {
         mApp->Popup("SDL_Init Error: " + aError);
         return false;
     }
+    if (SDL_Init(SDL_INIT_EVENTS) != 0) {
+        std::string aError = SDL_GetError();
+        mApp->Popup("SDL_Init Error: " + aError);
+        return false;
+    }
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY,(mApp->Is3DAccelerated() ?  "1" : "0"));
     mWindow = SDL_CreateWindow(mApp->mTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         mApp->mWidth, mApp->mHeight, SDL_WINDOW_SHOWN);
@@ -69,7 +75,6 @@ bool SDLInterface::InitWindow() {
         mApp->Popup("SDL_CreateWindow Error: " + aError);
         return false;
     }
-
     SDL_SetWindowFullscreen(mWindow, !mApp->mIsWindowed ? SDL_WINDOW_FULLSCREEN : 0);
 
     mRenderer = SDL_CreateRenderer(mWindow, -1, (mApp->Is3DAccelerationSupported() ? SDL_RENDERER_ACCELERATED : SDL_RENDERER_SOFTWARE) | SDL_RENDERER_PRESENTVSYNC);
@@ -110,8 +115,8 @@ void SDLInterface::SetRenderMode(bool useHardware)
 bool shouldDoErrors = false;
 
 SDL_Texture* SDLInterface::LoadTexture(Image* theImage, const Rect theClipRect, const Color theColor) {
-    if (textureCache.find(theImage->mFilePath) != textureCache.end()) {
-        auto& aTexture = textureCache[theImage->mFilePath];
+    if (textureCache.find(theImage) != textureCache.end()) {
+        auto& aTexture = textureCache[theImage];
         SDL_SetTextureColorMod(aTexture, theColor.GetRed(), theColor.GetGreen(), theColor.GetBlue());
         SDL_SetTextureAlphaMod(aTexture, theColor.GetAlpha());
         return aTexture;
@@ -122,7 +127,7 @@ SDL_Texture* SDLInterface::LoadTexture(Image* theImage, const Rect theClipRect, 
         SDL_Texture* aTexture = theMemoryImage->ConvertToSDLTexture();
         if (aTexture)
         {
-            textureCache[theImage->mFilePath] = aTexture;
+            textureCache[theImage] = aTexture;
             SDL_SetTextureColorMod(aTexture, theColor.GetRed(), theColor.GetGreen(), theColor.GetBlue());
             SDL_SetTextureAlphaMod(aTexture, theColor.GetAlpha());
         }
@@ -137,7 +142,7 @@ SDL_Texture* SDLInterface::LoadTexture(Image* theImage, const Rect theClipRect, 
         mApp->Popup("SDL_CreateTexture Error: " + aError);
         return nullptr;
     }
-    textureCache[theImage->mFilePath] = texture;
+    textureCache[theImage] = texture;
     SDL_SetTextureColorMod(texture, theColor.GetRed(), theColor.GetGreen(), theColor.GetBlue());
     SDL_SetTextureAlphaMod(texture, theColor.GetAlpha());
     return texture;
@@ -180,7 +185,11 @@ void SDLInterface::Blit(Image* theImage, float theX, float theY, const Rect theS
     SDL_Rect destRect = { theX - theCenterRotX, theY - theCenterRotY, theImage->mWidth, theImage->mHeight};
     SDL_Rect srcRect = { theSrcRect.mX, theSrcRect.mY, theSrcRect.mWidth, theSrcRect.mHeight};
 
-    SDL_Rect clipRect = { theClipRect.mX, theClipRect.mY, theClipRect.mWidth, theClipRect.mHeight };
+    SDL_Rect clipRect;
+    if (theClipRect.mWidth > 0 || theClipRect.mHeight > 0)
+        clipRect = { theClipRect.mX, theClipRect.mY, theClipRect.mWidth, theClipRect.mHeight };
+    else
+        clipRect = { theClipRect.mX, theClipRect.mY , mApp->mWidth, mApp->mHeight };
 
     SDL_SetTextureBlendMode(aTexture, ChooseBlendMode(aBlendMode));
     SDL_RenderSetClipRect(mRenderer, &clipRect);
@@ -225,7 +234,7 @@ void SDLInterface::BlitMirror(Image* theImage, const Rect theDestRect, const Rec
     SDL_SetRenderTarget(mRenderer, nullptr);
 }
 
-void SDLInterface::Blit(Image* theImage, SexyMatrix3 theMatrix, const Rect theSrcRect,const Rect theClipRect, const Color theColor, int aBlendMode)
+void SDLInterface::Blit(Image* theImage, int theX, int theY, SexyMatrix3 theMatrix, const Rect theSrcRect,const Rect theClipRect, const Color theColor, int aBlendMode)
 {
     SDL_SetRenderTarget(mRenderer, mScreenTexture);
 
@@ -318,6 +327,73 @@ void SDLInterface::BlitTriangle(Image* theImage, const TriVertex theVertices[][3
     SDL_SetRenderTarget(mRenderer, nullptr);
 }
 
+
+void SDLInterface::BlitMemoryImage(MemoryImage* theImage, float theX, float theY, float theScaleX, float theScaleY, const Rect theClipRect, const Color theColor, int aBlendMode) {
+    SDL_SetRenderTarget(mRenderer, mScreenTexture);
+
+    SDL_Texture* aTexture;
+
+    if (theImage->mSDL_Texture != nullptr)
+        aTexture = theImage->mSDL_Texture;
+    else
+    {
+        aTexture = theImage->ConvertToSDLTexture();
+        textureMemoryImageCache[theImage] = aTexture;
+    }
+    SDL_Rect destRect = { theX, theY, theImage->mWidth * theScaleX, theImage->mHeight * theScaleY };
+
+    SDL_Rect clipRect = { theClipRect.mX, theClipRect.mY, theClipRect.mWidth, theClipRect.mHeight };
+
+    SDL_SetTextureColorMod(aTexture, theColor.GetRed(), theColor.GetGreen(), theColor.GetBlue());
+    SDL_SetTextureAlphaMod(aTexture, theColor.GetAlpha());
+    SDL_SetTextureBlendMode(aTexture, ChooseBlendMode(aBlendMode));
+    SDL_RenderSetClipRect(mRenderer, &clipRect);
+    SDL_RenderCopyEx(mRenderer, aTexture, NULL, &destRect, 0, NULL, SDL_FLIP_NONE);
+    SDL_RenderSetClipRect(mRenderer, NULL);
+    SDL_SetRenderTarget(mRenderer, nullptr);
+}
+
+void SDLInterface::BlitMemoryImageToSDLTexture(MemoryImage* theImage, SDL_Texture* theTexture, float theX, float theY, float theScaleX, float theScaleY, const Rect theClipRect, const Color theColor, int aBlendMode) {
+
+    SDL_Texture* aNewTexture = SDL_CreateTexture(mRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, theImage->mWidth, theImage->mHeight);
+    SDL_SetTextureBlendMode(aNewTexture, SDL_BLENDMODE_BLEND);
+
+    theTexture = aNewTexture;
+
+    SDL_SetRenderTarget(mRenderer, theTexture);
+
+    SDL_Rect destRect = { theX, theY, theImage->mWidth * theScaleX, theImage->mHeight * theScaleY };
+
+    SDL_Rect clipRect = { theClipRect.mX, theClipRect.mY, theClipRect.mWidth, theClipRect.mHeight };
+
+    SDL_SetTextureColorMod(aNewTexture, theColor.GetRed(), theColor.GetGreen(), theColor.GetBlue());
+    SDL_SetTextureAlphaMod(aNewTexture, theColor.GetAlpha());
+    SDL_SetTextureBlendMode(aNewTexture, ChooseBlendMode(aBlendMode));
+    SDL_RenderSetClipRect(mRenderer, &clipRect);
+    SDL_RenderCopyEx(mRenderer, aNewTexture, NULL, &destRect, 0, NULL, SDL_FLIP_NONE);
+    SDL_RenderSetClipRect(mRenderer, NULL);
+    SDL_SetRenderTarget(mRenderer, nullptr);
+}
+
+
+void SDLInterface::BlitSDLTexture(SDL_Texture* theTexture, float theX, float theY, float theScaleX, float theScaleY, const Rect theClipRect, const Color theColor, int aBlendMode) {
+    SDL_SetRenderTarget(mRenderer, mScreenTexture);
+
+    SDL_Point size;
+    SDL_QueryTexture(theTexture, NULL, NULL, &size.x, &size.y);
+
+    SDL_Rect destRect = { theX, theY, size.x * theScaleX, size.y * theScaleY };
+
+    SDL_Rect clipRect = { theClipRect.mX, theClipRect.mY, theClipRect.mWidth, theClipRect.mHeight };
+
+    SDL_SetTextureBlendMode(theTexture, ChooseBlendMode(aBlendMode));
+    SDL_RenderSetClipRect(mRenderer, &clipRect);
+    SDL_RenderCopyEx(mRenderer, theTexture, NULL, &destRect, 0, NULL, SDL_FLIP_NONE);
+    SDL_RenderSetClipRect(mRenderer, NULL);
+    SDL_SetRenderTarget(mRenderer, nullptr);
+}
+
+
 void SDLInterface::DrawRect(int theX, int theY, int theWidth, int theHeight, const Color theColor, int aBlendMode)
 {
     SDL_SetRenderTarget(mRenderer, mScreenTexture);
@@ -352,14 +428,23 @@ void SDLInterface::MouseDown(SDL_MouseButtonEvent& theButton, bool isPressed)
     mApp->mWidgetManager->MouseDown(mMouseX, mMouseY, 0);
 }
 
-void SDLInterface::PlaySDLSound(const std::string& file)
+void SDLInterface::PlaySDLSound(const std::string& file, float aPitch)
 {
+    return;
     Mix_Chunk* sound = Mix_LoadWAV(file.c_str());
-    if (sound == nullptr) {
-        std::string aError = Mix_GetError();
-        mApp->Popup("Failed to load sound! SDL_mixer Error: " + aError);
+
+    int aOriginalFrequency;
+    Uint16 aFormat;
+    int channels;
+    Mix_QuerySpec(&aOriginalFrequency, &aFormat, &channels);
+
+    int adjustedFrequency = static_cast<int>(aOriginalFrequency * aPitch);
+    Mix_CloseAudio();
+    if (Mix_OpenAudio(adjustedFrequency, aFormat, channels, 4096) == -1) {
+        SDL_Log("Could not open audio: %s", Mix_GetError());
         return;
     }
+
     Mix_PlayChannel(-1, sound, 0);
 }
 
